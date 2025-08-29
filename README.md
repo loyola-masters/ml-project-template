@@ -1,4 +1,3 @@
-# ML Project Template (mínimo)
 # ML Project Template — MUIA (WSL + uv, Python 3.11)
 
 Plantilla mínima y estable para proyectos de ML con **WSL (Ubuntu)**, **uv**, **Makefile** y un ejemplo reproducible (árbol de decisión en Iris).
