@@ -1,8 +1,21 @@
+# Byte-compiled / optimized / DLL files
 __pycache__/
 *.pyc
+
+# Virtual environments
 .venv/
 .env
-data/
-runs/
+
+# Datos locales (solo mantener .gitkeep)
+data/*
+!data/.gitkeep
+
+# Resultados / artefactos (solo mantener .gitkeep)
+runs/*
+!runs/.gitkeep
+
+# Jupyter checkpoints
 .ipynb_checkpoints/
+
+# Archivos de sistema
 .DS_Store
