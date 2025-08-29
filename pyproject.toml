@@ -1,0 +1,14 @@
+[project]
+name = "ml-project-template"
+version = "0.1.0"
+description = "Template mínimo para proyectos ML (MUIA) con uv"
+readme = "README.md"
+requires-python = "==3.11.*"
+dependencies = [
+  "scikit-learn>=1.5",
+  "PyYAML>=6.0"
+]
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
