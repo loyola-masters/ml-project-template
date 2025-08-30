@@ -1,39 +1,45 @@
-# ML Project Template — MUIA (WSL + uv, Python 3.11)
+# 📦 ML Project Template — MUIA
 
-Plantilla mínima y estable para proyectos de ML con **WSL (Ubuntu)**, **uv**, **Makefile** y un ejemplo reproducible (árbol de decisión en Iris).
+Plantilla mínima y estable para proyectos de **Machine Learning** con:
 
-> Objetivo de onboarding: que cualquier alumno, desde cero en Windows, pueda ejecutar:
-> 
-> 
-> ```bash
-> make setup
-> make test
-> make train
-> 
-> ```
-> 
+- 🐧 **WSL (Ubuntu en Windows)** o **macOS**
+- ⚡ **uv** (gestor de Python y paquetes)
+- 📜 **Makefile**
+- 🌱 Ejemplo reproducible: *árbol de decisión en Iris*
+
+👉 **Objetivo de onboarding**: que cualquier alumno, **desde cero en Windows o Mac**, pueda ejecutar:
+
+```bash
+make setup
+make test
+make train
+
+```
 
 ---
 
-## 0) Instalación desde cero (Windows → WSL → Ubuntu)
+## 🚀 0) Instalación inicial
 
-1. **Activar WSL (una sola vez)**
-    - Abre **PowerShell** como administrador y ejecuta:
-        
-        ```powershell
-        wsl --install -d Ubuntu
-        
-        ```
-        
-    - Reinicia si te lo pide. Al primer arranque pon **usuario/contraseña** de Ubuntu.
-2. **Actualizar Ubuntu (en WSL)**
-    - Abre **Ubuntu** (app) o terminal de **VS Code** con Ubuntu y ejecuta:
-        
-        ```bash
-        sudo apt update && sudo apt upgrade -y
-        
-        ```
-        
+### 🖥️ Windows → WSL + Ubuntu
+
+1. **Activar WSL** (solo una vez)
+    
+    Abre **PowerShell como administrador** y ejecuta:
+    
+    ```powershell
+    wsl --install -d Ubuntu
+    
+    ```
+    
+    Reinicia si lo pide. Al primer arranque, crea usuario/contraseña.
+    
+2. **Actualizar Ubuntu**
+    
+    ```bash
+    sudo apt update && sudo apt upgrade -y
+    
+    ```
+    
 3. **Instalar Git y utilidades**
     
     ```bash
@@ -41,7 +47,7 @@ Plantilla mínima y estable para proyectos de ML con **WSL (Ubuntu)**, **uv**, *
     
     ```
     
-4. **Configurar Git (nombre y correo)**
+4. **Configurar Git**
     
     ```bash
     git config --global user.name "Tu Nombre"
@@ -57,15 +63,16 @@ Plantilla mínima y estable para proyectos de ML con **WSL (Ubuntu)**, **uv**, *
     
     ```
     
-    - Copia la clave pública y añádela en **GitHub → Settings → SSH and GPG keys → New SSH key**.
-    - Prueba:
-        
-        ```bash
-        ssh -T git@github.com
-        
-        ```
-        
-6. **Instalar `uv` (gestor de Python/paquetes)**
+    Copia la clave pública en → [GitHub → Settings → SSH and GPG keys → New SSH key]
+    
+    Prueba:
+    
+    ```bash
+    ssh -T git@github.com
+    
+    ```
+    
+6. **Instalar uv**
     
     ```bash
     curl -LsSf https://astral.sh/uv/install.sh | sh
@@ -78,25 +85,84 @@ Plantilla mínima y estable para proyectos de ML con **WSL (Ubuntu)**, **uv**, *
 
 ---
 
-## 1) Python por defecto (3.11)
+### 🍎 macOS (Intel / Apple Silicon)
 
-Usamos **Python 3.11** para máxima compatibilidad.
-
-- Instálalo (si no está ya):
+1. **Instalar Homebrew** (si no lo tienes):
     
     ```bash
-    uv python install 3.11
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     
     ```
     
-- (El Makefile del template ya crea el entorno con 3.11.)
+2. **Paquetes base**
+    
+    ```bash
+    brew install git make curl
+    
+    ```
+    
+3. **Configurar Git**
+    
+    ```bash
+    git config --global user.name "Tu Nombre"
+    git config --global user.email "tu_email@loyola.es"
+    
+    ```
+    
+4. **SSH con GitHub (recomendado)**
+    
+    ```bash
+    ssh-keygen -t ed25519 -C "tu_email@loyola.es"
+    cat ~/.ssh/id_ed25519.pub
+    
+    ```
+    
+    Añádela en GitHub → Settings → SSH and GPG keys.
+    
+    Si tienes varias claves, crea `~/.ssh/config`:
+    
+    ```
+    Host github.com
+      HostName github.com
+      User git
+      IdentityFile ~/.ssh/id_ed25519
+      IdentitiesOnly yes
+    
+    ```
+    
+5. **Instalar uv**
+    
+    ```bash
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+    echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
+    source ~/.zshrc
+    uv --version
+    
+    ```
+    
 
 ---
 
-## 2) Crear tu repositorio desde la plantilla
+## 🐍 1) Python por defecto (3.11)
 
-1. En GitHub, entra a `ml-project-template` y pulsa **Use this template → Create a new repository**.
-2. Clona **tu** repo (vía SSH) en WSL:
+El curso usa **Python 3.11** (máxima compatibilidad).
+
+Instala (si no lo tienes):
+
+```bash
+uv python install 3.11
+
+```
+
+> ⚠️ El Makefile ya usa 3.11 por defecto.
+> 
+
+---
+
+## 📂 2) Crear tu repositorio desde la plantilla
+
+1. Entra en **ml-project-template** → pulsa **Use this template** → **Create a new repository**.
+2. Clona tu repo en `~/code`:
     
     ```bash
     mkdir -p ~/code && cd ~/code
@@ -108,33 +174,31 @@ Usamos **Python 3.11** para máxima compatibilidad.
 
 ---
 
-## 3) Quickstart del proyecto
+## ⚡ 3) Quickstart del proyecto
 
 ```bash
-# crea el entorno 3.11, instala deps y deja todo listo
-make setup
-
-# verificación rápida de scikit-learn
-make test
-
-# entrenamiento mínimo (iris + DecisionTree)
-make train
-
-# artefactos (modelo y métricas) en runs/AAAAmmdd_HHMMSS/
+make setup   # crea el entorno 3.11 e instala dependencias
+make test    # verificación rápida (scikit-learn)
+make train   # entrena DecisionTree en Iris
 
 ```
 
-Si quieres tocar algo de inmediato, edita `configs/config.yaml` (por ejemplo `max_depth`) y repite `make train`.
+- 📊 Resultados en `runs/AAAAmmdd_HHMMSS/`
+    
+    (incluye `model.joblib` y `metrics.json`)
+    
+
+👉 Si quieres probar rápido: edita `configs/config.yaml` (ej. `max_depth`) y vuelve a ejecutar `make train`.
 
 ---
 
-## 4) Estructura mínima
+## 🗂️ 4) Estructura mínima del repo
 
 ```
 .
 ├── configs/           # configuración (YAML)
 ├── data/              # datos locales (ignorado en Git)
-├── runs/              # salidas/artefactos (ignorado en Git)
+├── runs/              # artefactos/outputs (ignorado en Git)
 ├── src/app/train.py   # script de entrenamiento mínimo
 ├── Makefile           # setup/test/train
 ├── pyproject.toml     # deps y metadatos (uv/PEP 621)
@@ -142,18 +206,16 @@ Si quieres tocar algo de inmediato, edita `configs/config.yaml` (por ejemplo `ma
 
 ```
 
-**Reglas básicas**
+✅ Reglas:
 
-- No subas datos pesados: `data/` está en `.gitignore`.
-- Commits y PRs pequeños; ramas `feat/...`, `fix/...`.
+- No subas datos pesados (`data/` está en `.gitignore`).
+- Commits pequeños; usa ramas `feat/...`, `fix/...`.
 
 ---
 
-## 5) Cómo pasar a Python 3.12 (o la más reciente)
+## 🔄 5) Cambiar de versión de Python (ej. 3.12)
 
-Si en algún momento quieres cambiar de versión **en tu repo**:
-
-**Opción A (puntual, sin tocar archivos)**
+### Opción A (solo para tu entorno)
 
 ```bash
 uv python install 3.12
@@ -161,23 +223,23 @@ make setup PY=3.12
 
 ```
 
-**Opción B (cambiar el proyecto para usar 3.12 por defecto)**
+### Opción B (proyecto entero → default 3.12)
 
-1. Edita `pyproject.toml`:
+- En `pyproject.toml`:
     
     ```toml
-    requires-python = "==3.12.*"   # o ">=3.12" si quieres permitir versiones futuras
+    requires-python = "==3.12.*"
     
     ```
     
-2. En `Makefile`, cambia la línea superior:
+- En `Makefile`:
     
-    ```
+    ```makefile
     PY ?= 3.12
     
     ```
     
-3. Regenera el entorno:
+- Regenera entorno:
     
     ```bash
     rm -rf .venv
@@ -186,21 +248,25 @@ make setup PY=3.12
     ```
     
 
-> Nota: Para volver a 3.11, invierte los pasos (3.11 en requires-python, PY ?= 3.11, make setup).
-> 
+Para volver: haz lo mismo con 3.11.
 
 ---
 
-## 6) Preguntas frecuentes (WSL)
+## ❓ 6) Preguntas frecuentes
 
-- **`Permission denied (publickey)` al clonar**
+- **❌ Permission denied (publickey)**
     
-    → Asegúrate de haber añadido tu clave pública a GitHub y de clonar por **SSH**, no por HTTPS.
+    → Añade tu clave SSH a GitHub y clona por SSH.
     
-- **`uv: command not found`**
+- **❌ uv: command not found**
     
-    → Abre una nueva terminal o ejecuta `source ~/.bashrc`. Verifica `echo $PATH` contiene `$HOME/.local/bin`.
+    → Abre nueva terminal o ejecuta `source ~/.bashrc` / `~/.zshrc`.
     
-- **¿Dónde están mis archivos?**
+- **📂 ¿Dónde están mis archivos?**
     
-    → Trabaja en `~/code/...` (Linux). Evita rutas de Windows (`/mnt/c/...`) para no perder rendimiento.
+    → Trabaja siempre en `~/code/...` (Linux).
+    
+    Evita rutas `/mnt/c/...` o iCloud/Dropbox/OneDrive → **pierdes rendimiento y fiabilidad**.
+    
+
+---
