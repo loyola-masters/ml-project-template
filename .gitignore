@@ -19,3 +19,6 @@ runs/*
 
 # Archivos de sistema
 .DS_Store
+
+# VSC
+.vscode/

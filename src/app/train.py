@@ -16,6 +16,9 @@ def set_seed(s: int):
     random.seed(s); np.random.seed(s)
 
 def main():
+    
+    print("Running Iris training: train.py...")
+    
     cfg = load_cfg()
     set_seed(cfg["seed"])
     X, y = datasets.load_iris(return_X_y=True)
