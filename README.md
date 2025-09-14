@@ -13,7 +13,6 @@ Plantilla mínima y estable para proyectos de **Machine Learning** con:
 make setup
 make test
 make train
-
 ```
 
 ---
@@ -28,7 +27,6 @@ make train
 
    ```powershell
    wsl --install -d Ubuntu
-
    ```
 
    Reinicia si lo pide. Al primer arranque, crea usuario/contraseña.
@@ -36,20 +34,17 @@ make train
 
    ```bash
    sudo apt update && sudo apt upgrade -y
-
    ```
 3. **Instalar Git y utilidades**
 
    ```bash
    sudo apt install -y git curl make
-
    ```
 4. **Configurar Git**
 
    ```bash
    git config --global user.name "Tu Nombre"
    git config --global user.email "tu_email@loyola.es"
-
    ```
 
    Comprueba la configuración:
@@ -160,7 +155,7 @@ make train
    Por defecto, el nombre del par de ficheros de la clave es el nombre del algoritmo `ed25519`. Si quieres darle un nombre específico:
    ```bash
    ssh-keygen -t ed25519 -f ed25519_gitlab -C "tu_email@loyola.es"
-
+   ```
 
    Lo que vemos en pantalla es la clave pública (que no es necesaria en el equipo local). El otro fichero (mismo nombre, pero sin extensión) `id_ed25519` es la clave privada, que sólo debe estar en nuestro equipo local.
 
@@ -178,12 +173,12 @@ make train
    echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
    source ~/.zshrc
    uv --version
-
    ```
 6. Instalar make:
-```bash
-sudo apt install make
-```
+   ```bash
+   sudo apt install make
+   ```
+
 ---
 
 ## 🐍 1) Python por defecto (3.11)
@@ -194,7 +189,6 @@ Instala (si no lo tienes):
 
 ```bash
 uv python install 3.11
-
 ```
 
 > ⚠️ El Makefile ya usa 3.11 por defecto.
@@ -400,11 +394,13 @@ fi
 ### C. Python nativo
 En Ubuntu (comprueba la versión en WSL con `lsb_release -a`), ya viene preinstalado Python. Localiza la ruta:
 ```bash
-$ which python3
+$ which python3 
 /usr/bin/python3
 ```
-Si intentas llamar a `python` verás que da error, y es porque no está apuntando por defecto a `python3`.
-De esta forma, al no estar definido por defecto, aseguramos que `python` apunte a la ubicación y versión de `uv`:
+Es un soft link: `python3 -> python3.10`
+
+Si intentas llamar a `python` verás que da error, y es porque no está apuntando a `python3`.
+De esta forma, al no estar definido por defecto, aseguramos que `python` apunte a la ubicación y versión de `uv` que queramos:
 ```bash
 $ which uv
 /home/ubuntu/.local/bin/uv
