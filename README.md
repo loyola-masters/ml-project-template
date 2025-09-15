@@ -1,24 +1,28 @@
 # 📦 ML Project Template — MUIA
+
+Work in progress:
+https://gitlab.com/bernardo.ronquillo.japon/ml-project-template-gitlab, rama `brj-01`
+
+To be merged in:
+https://github.com/dcanales-lu/ml-project-template
+
 ## Índice sesión On-Boarding
 1. **Guía de configuración** del stack tecnológico. Parte 1 (a continuación). Cubre los siguientes apartados:
    - Setup WSL (Windows) + MacOS
    - Clonación plantilla de proyecto
       - Python & gestor de paquetes y entonrnos `uv`
       - Makefile & setup/test/training (árbol de decisión sobre Iris dataset)
+
+En la parte 2 de la guía se cubren los siguientes apartados:
 2. **Gitlab** & `git`quick start (versionado del código)
 3. **DagsHub** & `git`quick start (dataset & tracking experimentos ML)
 3. **Docker** setup & quick start
 4. **Visual Studio Code** & extensiones recomendadas
 5. **Hands On**. Proyecto end-to-end (diagnóstico diabetes basado en `PIMA Diabetes` dataset)
 
-### 📑 Documentación y guías a seguir
-
-- [Gestión de datos con Dagshub](./docs/data_management.md)
-- [Equivalencias uv ↔ conda](./docs/uv.md)
-
 ---
 
-# 📦 ML Project Template — MUIA
+# 📦 ML Project Template — MUIA. Guía de configuración: parte 1
 **Guía de configuración** del stack tecnológico
 
 ---
