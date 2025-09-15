@@ -1,4 +1,27 @@
 # 📦 ML Project Template — MUIA
+## Índice sesión On-Boarding
+1. **Guía de configuración** del stack tecnológico. Parte 1 (a continuación). Cubre los siguientes apartados:
+   - Setup WSL (Windows) + MacOS
+   - Clonación plantilla de proyecto
+      - Python & gestor de paquetes y entonrnos `uv`
+      - Makefile & setup/test/training (árbol de decisión sobre Iris dataset)
+2. **Gitlab** & `git`quick start (versionado del código)
+3. **DagsHub** & `git`quick start (dataset & tracking experimentos ML)
+3. **Docker** setup & quick start
+4. **Visual Studio Code** & extensiones recomendadas
+5. **Hands On**. Proyecto end-to-end (diagnóstico diabetes basado en `PIMA Diabetes` dataset)
+
+### 📑 Documentación y guías a seguir
+
+- [Gestión de datos con Dagshub](./docs/data_management.md)
+- [Equivalencias uv ↔ conda](./docs/uv.md)
+
+---
+
+# 📦 ML Project Template — MUIA
+**Guía de configuración** del stack tecnológico
+
+---
 
 Plantilla mínima y estable para proyectos de **Machine Learning** con:
 
