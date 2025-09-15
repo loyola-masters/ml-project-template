@@ -81,19 +81,21 @@ Cada repo de DagsHub tiene un servidor MLflow integrado.
    ```
 
    b. `MLFLOW_TRACKING_PASSWORD` es un **Personal Access Token** que debes generar:
+
    - Entra en DagsHub → arriba a la derecha → **Settings**.
    - Menú lateral → **Access Tokens**.
    - Pulsa **Generate New Token**.
+
    * Nombre: `mlflow_token`
    * Permisos: `write:repo` (lectura/escritura sobre repositorios). Copia el valor generado (empieza por `ghp_...`).
 
-Añádelo a tu fichero `.env` (que está en `.gitignore` para que no sea subido a Git):
+Añádelo a tu fichero `.env` (que está nombrado `.gitignore` para que no sea subido a Git):
 
 ```bash
 MLFLOW_TRACKING_PASSWORD=ghp_XXXXXXXXXXXXXXXXXXXXX
 ```
 
-Fichero `.env` completo de ejemplo
+Fichero `.env` completo de ejemplo (alojado en el directorio raíz de la app `./src`):
 
 ```bash
 MLFLOW_TRACKING_URI=https://dagshub.com/<usuario>/<repo>.mlflow

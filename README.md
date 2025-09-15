@@ -17,21 +17,22 @@ https://github.com/dcanales-lu/ml-project-template
 En la parte 2 de la guía se cubren los siguientes apartados:
 2. **Gitlab** & `git`  quick start (versionado del código)
 3. **DagsHub** & `git lfs`quick start (dataset & tracking experimentos ML)
-3. **Docker** setup & quick start
-4. **Visual Studio Code** & extensiones recomendadas
-5. **Hands On**. Proyecto end-to-end (diagnóstico diabetes basado en `PIMA Diabetes` dataset)
+4. **Docker** setup & quick start
+5. **Visual Studio Code** & extensiones recomendadas
+6. **Hands On**. Proyecto end-to-end (diagnóstico diabetes basado en `PIMA Diabetes` dataset)
 
 Las guías para cada apartado puede encontrarse en el directorio `./docs`:
 
 ### 📑 Documentación y guías a seguir
 
-2. [**Gitlab** & `git`  quick start](./docs/02_Gitlab.md)
-3. [**DagsHub** & `git lfs` quick start](./docs/03_data.md)
-4. [**Docker** setup & quick start](./docs/04_Docker.md)
-5. **Visual Studio Code** & extensiones recomendadas (./docs/04_Docker.md)
+2. [**Gitlab** &amp; `git`  quick start](./docs/02_Gitlab.md)
+3. [**DagsHub** &amp; `git lfs` quick start](./docs/03_data.md)
+4. [**Docker** setup &amp; quick start](./docs/04_Docker.md)
+5. **Visual Studio Code** & extensiones recomendadas (./docs/05_vsc.md)
 6. [**Hands On**](./hands-on/XXX.md). Proyecto end-to-end
 
 Otras guías:
+
 - [Gestión de datos con Dagshub](./docs/data_management.md)
 - [Equivalencias uv ↔ conda](./docs/uv.md)
 
@@ -127,7 +128,6 @@ make train
 
    - Añade la clave pública anterior o crea otro par pública/privada si quieres usar otra diferente para Gitlab
    - Copia la clave pública en Gitlab → Settings → SSH keys
-
 6. **Instalar uv**
 
    ```bash
