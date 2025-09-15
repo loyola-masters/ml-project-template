@@ -14,12 +14,19 @@ if [ "$1" = "list" ]; then
             if [ -z "$PYTHON_VER" ]; then
                 PYTHON_VER="(sin Python)"
             fi
-            echo " - $NAME  [$PYTHON_VER]"
+            # Marcar el entorno activo
+            echo "VIRTUAL_ENV = $VIRTUAL_ENV"
+            if [ "$VIRTUAL_ENV" = "$env" ]; then
+                echo " * $NAME  [$PYTHON_VER]"
+            else
+                echo "   $NAME  [$PYTHON_VER]"
+            fi
         fi
     done
 
 elif [ "$1" = "activate" ] && [ -n "$2" ]; then
     ENV_PATH="$ENV_DIR/$2"
+    echo "ENV_PATH = $ENV_PATH"
     if [ -d "$ENV_PATH" ]; then
         # Activa el entorno
         source "$ENV_PATH/bin/activate"

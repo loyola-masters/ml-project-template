@@ -1,17 +1,17 @@
-Tabla de equivalencias entre **uv** y **conda**:
+## Tabla de equivalencias entre **uv** y **conda**
 
-| Tarea                       | `uv`                                                                              | `conda`                                 |
-| --------------------------- | --------------------------------------------------------------------------------- | --------------------------------------- |
-| Crear un entorno nuevo      | `uv venv .venv` (o `uv venv <ruta>`)                                              | `conda create -n myenv python=3.11`     |
-| Activar entorno             | `source .venv/bin/activate` (Linux/macOS) <br> `.venv\Scripts\activate` (Windows) | `conda activate myenv`                  |
-| Instalar paquete            | `uv add numpy`                                                                    | `conda install numpy`                   |
-| Instalar desde requirements | `uv pip install -r requirements.txt`                                              | `conda install --file requirements.txt` |
-| Eliminar paquete            | `uv remove numpy`                                                                 | `conda remove numpy`                    |
-| Listar paquetes instalados  | `uv pip list`                                                                     | `conda list`                            |
-| Exportar dependencias       | `uv pip freeze > requirements.txt`                                                | `conda env export > env.yml`            |
-| Reinstalar desde lockfile   | `uv sync`                                                                         | `conda env create -f env.yml`           |
-| Actualizar paquete          | `uv add --upgrade numpy`                                                          | `conda update numpy`                    |
-| Borrar entorno              | borrar la carpeta `.venv`                                                         | `conda env remove -n myenv`             |
+| Tarea                       | `uv`                                                                                                   | `conda`                                 |
+| --------------------------- | -------------------------------------------------------------------------------------------------------- | ----------------------------------------- |
+| Crear un entorno nuevo      | `uv venv myenv` (o `uv venv <ruta>`)<br />Environment se crea en `./env` si no se especifica ruta | `conda create -n myenv python=3.11`     |
+| Activar entorno             | `source ./myenv/bin/activate` (Linux/macOS) `<br>` `.\myvenv\Scripts\activate` (Windows)           | `conda activate myenv`                  |
+| Instalar paquete            | `uv add numpy`                                                                                         | `conda install numpy`                   |
+| Instalar desde requirements | `uv pip install -r requirements.txt`                                                                   | `conda install --file requirements.txt` |
+| Eliminar paquete            | `uv remove numpy`                                                                                      | `conda remove numpy`                    |
+| Listar paquetes instalados  | `uv pip list`                                                                                          | `conda list`                            |
+| Exportar dependencias       | `uv pip freeze > requirements.txt`                                                                     | `conda env export > env.yml`            |
+| Reinstalar desde lockfile   | `uv sync`                                                                                              | `conda env create -f env.yml`           |
+| Actualizar paquete          | `uv add --upgrade numpy`                                                                               | `conda update numpy`                    |
+| Borrar entorno              | borrar la carpeta `.venv`                                                                              | `conda env remove -n myenv`             |
 
 🔑 Diferencias clave:
 
@@ -19,43 +19,40 @@ Tabla de equivalencias entre **uv** y **conda**:
 * Usa `uv add` en vez de `pip install`.
 * No hay un “gestor central de entornos” como `conda env list`, cada venv es una carpeta.
 
-**TIP:**Agrupa todos los envs bajo el directorio `~/envs`
+**TIP:** Agrupa todos los envs bajo el directorio `~/envs`
 
 Cómo usar:
+
 ```bash
 uv venv ~/venvs/py311
 source ~/venvs/py311/bin/activate
 ```
 
----
+## Script para usar `uv` como equivalencias de `conda`
 
+1. Script localizado en `./scripts/uv-envs.sh`
 
-### Script para usar `uv` como equivalencias de `conda`
-
-1. Guarda este script como `uv-envs.sh`
-    - Previamente crea el directorio `~/scripts` para alojar aquí todos tus scripts
-
-2. Dale permisos:
+2. Dale permisos de ejecución:
    ```bash
    chmod +x ~/scripts/uv-envs.sh
    ```
 
-3. Úsalo como si fuera `conda`:
+3. **Opción 1 (recomendada)**: añádelo a tu `~/.bashrc` como función, para invocarlo directamente como si fuera un comando:
 ```bash
-uv-env list
-```
-
----
-Añádelo a tu `~/.bashrc` como función, para invocarlo directamente como si fuera un comando:
-
-```bash
-function uv-env() {
-    bash ~/uv-envs.sh "$@"
+uv-env(){
+ # Contenido de uv-envs.sh
 }
 ```
 
-y luego:
-
-```bash
+Uso:
+```
+source ~/.bashrc
 uv-env list
+uv-env activate py311
+```
+
+- **Opción 2**: Como un script separado `uv-envs.sh` (ver `README.md` en directorio `./scripts`del repositorio):
+```
+source ~/scripts/uv-envs.sh list
+source ~/scripts/uv-envs.sh activate py312
 ```

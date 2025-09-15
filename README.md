@@ -405,13 +405,13 @@ y verás listados tus permisos, incluyendo `NOPASSWD`.
 * **`.profile`** → configuración **global** de la sesión (se carga al iniciar sesión).
 * **`.bashrc`** → configuración **interactiva** de Bash (alias, funciones, prompt).
 
-| Característica              | `.bashrc`                                                                      | `.profile`                                                                 |
-| ---------------------------- | -------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| **Cuándo se ejecuta** | Cada vez que abres una**shell interactiva no-login** (ej. abrir terminal). | Al iniciar una**shell de login** (ej. entrar en el sistema o por SSH). |
-| **Frecuencia**         | Muchas veces, cada nueva terminal.                                               | Una sola vez al inicio de la sesión.                                        |
-| **Uso típico**        | Alias, funciones, colores del prompt, atajos de comandos.                        | Variables de entorno globales (PATH, JAVA\_HOME, EDITOR).                    |
-| **Relación**          | Solo afecta a Bash.                                                              | Puede invocar a `.bashrc` para cargar también sus ajustes.                |
-| **Ejemplo**            | `alias gs="git status"`                                                        | `export PATH="$HOME/bin:$PATH"`                                            |
+| Característica              | `.bashrc`                                                                        | `.profile`                                                                 |
+| ---------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| **Cuándo se ejecuta** | Cada vez que abres una **shell interactiva no-login** (ej. abrir terminal). | Al iniciar una**shell de login** (ej. entrar en el sistema o por SSH). |
+| **Frecuencia**         | Muchas veces, cada nueva terminal.                                                 | Una sola vez al inicio de la sesión.                                        |
+| **Uso típico**        | Alias, funciones, colores del prompt, atajos de comandos.                          | Variables de entorno globales (PATH, JAVA\_HOME, EDITOR).                    |
+| **Relación**          | Solo afecta a Bash.                                                                | Puede invocar a `.bashrc` para cargar también sus ajustes.                |
+| **Ejemplo**            | `alias gs="git status"`                                                          | `export PATH="$HOME/bin:$PATH"`                                            |
 
 Para que `.profile` llame automáticamente a `.bashrc`, que no se ejecuta en el login, comprueba en tu archivo `~/.profile` que está presente este bloque de código:
 
