@@ -7,22 +7,37 @@ To be merged in:
 https://github.com/dcanales-lu/ml-project-template
 
 ## Índice sesión On-Boarding
+
 1. **Guía de configuración** del stack tecnológico. Parte 1 (a continuación). Cubre los siguientes apartados:
    - Setup WSL (Windows) + MacOS
    - Clonación plantilla de proyecto
-      - Python & gestor de paquetes y entonrnos `uv`
-      - Makefile & setup/test/training (árbol de decisión sobre Iris dataset)
+     - Python & gestor de paquetes y entonrnos `uv`
+     - Makefile & setup/test/training (árbol de decisión sobre Iris dataset)
 
 En la parte 2 de la guía se cubren los siguientes apartados:
-2. **Gitlab** & `git`quick start (versionado del código)
-3. **DagsHub** & `git`quick start (dataset & tracking experimentos ML)
+2. **Gitlab** & `git`  quick start (versionado del código)
+3. **DagsHub** & `git lfs`quick start (dataset & tracking experimentos ML)
 3. **Docker** setup & quick start
 4. **Visual Studio Code** & extensiones recomendadas
 5. **Hands On**. Proyecto end-to-end (diagnóstico diabetes basado en `PIMA Diabetes` dataset)
 
+Las guías para cada apartado puede encontrarse en el directorio `./docs`:
+
+### 📑 Documentación y guías a seguir
+
+2. [**Gitlab** & `git`  quick start](./docs/02_Gitlab.md)
+3. **DagsHub** & `git lfs` quick start (./docs/03_data.md)
+4. **Docker** setup & quick start (./docs/04_Docker.md)
+5. **Visual Studio Code** & extensiones recomendadas (./docs/04_Docker.md)
+6. [**Hands On**](./hands-on/XXX.md). Proyecto end-to-end
+
+- [Gestión de datos con Dagshub](./docs/data_management.md)
+- [Equivalencias uv ↔ conda](./docs/uv.md)
+
 ---
 
 # 📦 ML Project Template — MUIA. Guía de configuración: parte 1
+
 **Guía de configuración** del stack tecnológico
 
 ---
@@ -75,11 +90,11 @@ make train
    ```
 
    Comprueba la configuración:
+
    ```bash
    git config --list
    ```
-
-6. **Configurar SSH con GitHub (recomendado)**
+5. **Configurar SSH con GitHub (recomendado)**
 
    ```bash
    ssh-keygen -t ed25519 -C "tu_email@loyola.es"
@@ -88,16 +103,21 @@ make train
    ```
 
    Copia la clave pública en → [GitHub → Settings → SSH and GPG keys → New SSH key]
+
    - Prueba de conexión con Github:
+
    ```bash
    ssh -T git@github.com
    ```
+
    Si conecta correctamente:
+
    ```bash
    Hi username! You've successfully authenticated, but GitHub does not provide shell access.
    ```
 
-    Si tienes varias claves, crea `~/.ssh/config`:
+   Si tienes varias claves, crea `~/.ssh/config`:
+
    ```
    Host github.com
      HostName github.com
@@ -106,49 +126,35 @@ make train
      IdentitiesOnly yes
    ```
 
-   Esto se demuestra útil en el caso de tener una cuenta equivalente en Gitlab:
-    - Añade la clave pública anterior o crea otro par pública/privada si quieres usar otra diferente para Gitlab
-    - Copia la clave pública en Gitlab → Settings → SSH keys
+   Esto se demuestra útil en el caso de tener una cuenta equivalente en Gitlab, que veremos en el siguiente apartado de la guía.
 
-    Edita el fichero `~/.ssh/config` para añadir el nuevo host:
-    ```
-    Host github.com
-        HostName github.com
-        User git
-        IdentityFile ~/.ssh/id_ed25519
-        IdentitiesOnly yes
+   - Añade la clave pública anterior o crea otro par pública/privada si quieres usar otra diferente para Gitlab
+   - Copia la clave pública en Gitlab → Settings → SSH keys
 
-    Host gitlab.com
-        HostName gitlab.com
-        User git
-        IdentityFile ~/.ssh/id_ed25519_gitlab
-        IdentitiesOnly yes
-    ```
-    Y comprueba la conexión con ambos hosts:
-    ```bash
-    ssh -T git@github.com
-    ssh -T git@gitlab.com
-    ```
-
-7. **Instalar uv**
+6. **Instalar uv**
 
    ```bash
    curl -LsSf https://astral.sh/uv/install.sh | sh
    ```
+
    Si Ok verás las siguientes intrucciones en pantalla:
+
    ```bash
    To add $HOME/.local/bin to your PATH, either restart your shell or run:
 
    source $HOME/.local/bin/env (sh, bash, zsh)
    source $HOME/.local/bin/env.fish (fish)
    ```
+
    Añade la ruta al fichero de tu usuario, ejecútalo y haz la comprobación con el comando de versión de `uv`:
+
    ```bash
    echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
    source ~/.bashrc
    uv --version
    ```
-  Output: ```uv 0.8.17```
+
+  Output: ``uv 0.8.17``
 
 ---
 
@@ -179,7 +185,9 @@ make train
    ssh-keygen -t ed25519 -C "tu_email@loyola.es"
    cat ~/.ssh/id_ed25519.pub
    ```
+
    Por defecto, el nombre del par de ficheros de la clave es el nombre del algoritmo `ed25519`. Si quieres darle un nombre específico:
+
    ```bash
    ssh-keygen -t ed25519 -f ed25519_gitlab -C "tu_email@loyola.es"
    ```
@@ -187,12 +195,12 @@ make train
    Lo que vemos en pantalla es la clave pública (que no es necesaria en el equipo local). El otro fichero (mismo nombre, pero sin extensión) `id_ed25519` es la clave privada, que sólo debe estar en nuestro equipo local.
 
    Añádela en GitHub → Settings → SSH and GPG keys.
+
    - Prueba de conexión con Github:
 
    ```bash
    ssh -T git@github.com
    ```
-
 5. **Instalar uv**
 
    ```bash
@@ -202,6 +210,7 @@ make train
    uv --version
    ```
 6. Instalar make:
+
    ```bash
    sudo apt install make
    ```
@@ -243,7 +252,9 @@ cd <tu_repo>
 ```bash
 make setup   # crea el entorno 3.11 e instala dependencias
 ```
+
 El output te muestra la información de lo que se instala:
+
 ```python
 uv python install 3.11
 uv venv --python 3.11 || true
@@ -270,7 +281,9 @@ Installed 7 packages in 97ms
  + scipy==1.16.1
  + threadpoolctl==3.6.0
 ```
+
 Comprobación de la comprobación y proyecto ML de test (Iris):
+
 ```bash
 $ make test    # verificación rápida (scikit-learn)
 
@@ -368,19 +381,20 @@ Para volver: haz lo mismo con 3.11.
 ## ANEXO: Glosario y explicaciones
 
 ### A. Ejecutar comando `sudo`sin contraseña
+
 Edita el fichero de configuración con seguridad:
 
-   ```bash
+```bash
    sudo visudo
-   ```
+```
 
    (usa siempre `visudo`, nunca edites directamente `/etc/sudoers`, porque valida la sintaxis).
 
 2. Añade al final:
+
 ```bash
 tu_usuario_ubuntu ALL=(ALL) NOPASSWD:ALL
 ```
-
 
 ✅ **Verificación**:
 Después de configurar, ejecuta `sudo -l`
@@ -394,14 +408,13 @@ y verás listados tus permisos, incluyendo `NOPASSWD`.
 * **`.profile`** → configuración **global** de la sesión (se carga al iniciar sesión).
 * **`.bashrc`** → configuración **interactiva** de Bash (alias, funciones, prompt).
 
-
-| Característica        | `.bashrc`                                                               | `.profile`                                                            |
-| --------------------- | --------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| **Cuándo se ejecuta** | Cada vez que abres una **shell interactiva no-login** (ej. abrir terminal). | Al iniciar una **shell de login** (ej. entrar en el sistema o por SSH). |
-| **Frecuencia**        | Muchas veces, cada nueva terminal.                                          | Una sola vez al inicio de la sesión.                                    |
-| **Uso típico**        | Alias, funciones, colores del prompt, atajos de comandos.                   | Variables de entorno globales (PATH, JAVA\_HOME, EDITOR).               |
-| **Relación**          | Solo afecta a Bash.                                                         | Puede invocar a `.bashrc` para cargar también sus ajustes.              |
-| **Ejemplo**           | `alias gs="git status"`                                                     | `export PATH="$HOME/bin:$PATH"`                                         |
+| Característica              | `.bashrc`                                                                      | `.profile`                                                                 |
+| ---------------------------- | -------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| **Cuándo se ejecuta** | Cada vez que abres una**shell interactiva no-login** (ej. abrir terminal). | Al iniciar una**shell de login** (ej. entrar en el sistema o por SSH). |
+| **Frecuencia**         | Muchas veces, cada nueva terminal.                                               | Una sola vez al inicio de la sesión.                                        |
+| **Uso típico**        | Alias, funciones, colores del prompt, atajos de comandos.                        | Variables de entorno globales (PATH, JAVA\_HOME, EDITOR).                    |
+| **Relación**          | Solo afecta a Bash.                                                              | Puede invocar a `.bashrc` para cargar también sus ajustes.                |
+| **Ejemplo**            | `alias gs="git status"`                                                        | `export PATH="$HOME/bin:$PATH"`                                            |
 
 Para que `.profile` llame automáticamente a `.bashrc`, que no se ejecuta en el login, comprueba en tu archivo `~/.profile` que está presente este bloque de código:
 
@@ -419,22 +432,27 @@ fi
 ---
 
 ### C. Python nativo
+
 En Ubuntu (comprueba la versión en WSL con `lsb_release -a`), ya viene preinstalado Python. Localiza la ruta:
+
 ```bash
 $ which python3 
 /usr/bin/python3
 ```
+
 Es un soft link: `python3 -> python3.10`
 
 Si intentas llamar a `python` verás que da error, y es porque no está apuntando a `python3`.
 De esta forma, al no estar definido por defecto, aseguramos que `python` apunte a la ubicación y versión de `uv` que queramos:
+
 ```bash
 $ which uv
 /home/ubuntu/.local/bin/uv
 ```
+
 ---
 
-### D. Carga en Visual Studio el repositorio clonado en WSL 
+### D. Carga en Visual Studio el repositorio clonado en WSL
 
 **🔹 Opción 1: Usar la extensión oficial `WSL`**
 
@@ -454,6 +472,7 @@ $ which uv
      ```
 
    > El `code .` abre la carpeta actual de WSL directamente en VS Code de Windows, usando el servidor remoto de la extensión.
+   >
 
 ---
 
@@ -466,4 +485,3 @@ $ which uv
   code .
   ```
 * El comando `code .` invoca VS Code en Windows pero conectado al entorno WSL (si tienes la extensión Remote instalada).
-
