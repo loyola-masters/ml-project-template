@@ -26,23 +26,20 @@ Las guías para cada apartado puede encontrarse en el directorio `./docs`:
 ### 📑 Documentación y guías a seguir
 
 2. [**Gitlab** & `git`  quick start](./docs/02_Gitlab.md)
-3. **DagsHub** & `git lfs` quick start (./docs/03_data.md)
-4. **Docker** setup & quick start (./docs/04_Docker.md)
+3. [**DagsHub** & `git lfs` quick start](./docs/03_data.md)
+4. [**Docker** setup & quick start](./docs/04_Docker.md)
 5. **Visual Studio Code** & extensiones recomendadas (./docs/04_Docker.md)
 6. [**Hands On**](./hands-on/XXX.md). Proyecto end-to-end
 
+Otras guías:
 - [Gestión de datos con Dagshub](./docs/data_management.md)
 - [Equivalencias uv ↔ conda](./docs/uv.md)
 
 ---
 
-# 📦 ML Project Template — MUIA. Guía de configuración: parte 1
+# 📦  Guía de configuración: parte 1
 
-**Guía de configuración** del stack tecnológico
-
----
-
-Plantilla mínima y estable para proyectos de **Machine Learning** con:
+**Guía de configuración** del stack tecnológico. Este repositorio contiene la plantilla mínima y estable para proyectos de **Machine Learning** con:
 
 - 🐧 **WSL (Ubuntu en Windows)** o **macOS**
 - ⚡ **uv** (gestor de Python y paquetes)

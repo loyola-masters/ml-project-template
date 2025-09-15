@@ -102,7 +102,7 @@ git push origin main
 
 ---
 
-### Git Quick start
+### Introducción rápida a Git
 
 Git es un sistema de **control de versiones distribuido**. Permite guardar el historial de cambios de tu código, trabajar en paralelo y colaborar con otros de forma ordenada.
 
