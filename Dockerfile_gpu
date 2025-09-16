@@ -1,0 +1,51 @@
+# syntax=docker/dockerfile:1.7
+
+##############################
+# 🐳 Etapa única con GPU + uv
+##############################
+# CUDA 12.1 + cuDNN (Ubuntu 22.04). Runtime = más ligero que "devel".
+FROM nvidia/cuda:12.1.1-cudnn8-runtime-ubuntu22.04
+
+# Paquetes base y Python tooling mínimo
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends make \
+    curl ca-certificates git build-essential python3 python3-venv python3-pip \
+ && rm -rf /var/lib/apt/lists/*
+
+# Instala uv (gestor de Python/paquetes que usas en el curso)
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh
+ENV PATH="/root/.local/bin:${PATH}"
+
+# Opciones recomendadas para uv (compilación bytecode y venv gestionado)
+ENV UV_COMPILE_BYTECODE=1 \
+    UV_LINK_MODE=copy \
+    UV_PYTHON_PREFERENCE=only-managed
+
+# Directorio de trabajo
+WORKDIR /workspace
+
+# Copiamos metadatos primero para cacheo eficiente
+COPY pyproject.toml uv.lock* Makefile ./
+
+# Sincroniza deps del proyecto (crea .venv). Cacheamos el directorio de uv
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv sync --frozen --no-cache || uv sync --no-cache
+
+# Asegura el PATH del venv
+ENV PATH="/workspace/.venv/bin:${PATH}"
+
+# ---- PyTorch con CUDA 12.1 ----
+# Nota: usamos el índice oficial de PyTorch para ruedas cu121.
+# Puedes fijar versión si lo prefieres (ej. torch==2.4.0+cu121).
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv pip install --upgrade pip \
+ && uv pip install --index-url https://download.pytorch.org/whl/cu121 torch torchvision torchaudio
+
+# Copiamos el resto del proyecto
+COPY ./src .
+
+# (Opcional, buenas prácticas): ejecutar como usuario no root
+RUN groupadd -r app && useradd -r -g app -m app && chown -R app:app /workspace
+USER app
+
+# Comando por defecto: usa make (setup + test + train)
+CMD ["make", "setup", "test", "train"]
