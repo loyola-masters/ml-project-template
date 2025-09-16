@@ -1,4 +1,4 @@
-## 🐳 3) Docker setup & quick start
+## 🐳 4) Docker setup & quick start
 
 Docker permite empaquetar el entorno de desarrollo y ejecución en **contenedores reproducibles**.
 Así, todos los alumnos ejecutan el proyecto con las **mismas versiones** de Python, librerías y dependencias, sin problemas de instalación local.
@@ -50,3 +50,114 @@ Si ves el mensaje *Hello from Docker!*, todo está correcto.
 
    * **Usa Docker Desktop como motor único**. Desde tu Ubuntu-WSL, el cliente `docker` se conecta automáticamente al daemon de Docker Desktop (si tienes habilitada la integración con tu distro en “Settings → Resources → WSL Integration”).
    * Evita instalar `docker-ce` dentro de la misma Ubuntu-WLS si ya usas Docker Desktop, salvo que quieras gestionar un motor independiente.
+
+---
+
+### Hands On: Quickstart del proyecto con Docker
+
+1. En la raíz del repo tienes un `Dockerfile` mínimo. Construye la imagen:
+
+   ```bash
+   docker build -t ml-template .
+   ```
+2. Lanza un contenedor interactivo:
+
+   ```bash
+   docker run -it --rm -v $(pwd):/workspace ml-template bash
+   ```
+
+   * `-v $(pwd):/workspace` monta tu carpeta local dentro del contenedor.
+   * Así puedes editar código en tu editor y ejecutarlo dentro de Docker.
+   * `--rm` elimina el contenedor al salir de él
+3. Ejecutar el flujo de ejemplo (Iris):
+
+   ```bash
+   make setup
+   make test
+   make train
+   ```
+
+Cuando ejecutes `make setup` el terminal te avisará de que el environment de `uv` ya existe. Responde `yes` para sobreescribirlo con el setup de tu proyecto. Tras la ejecución, los artefactos (`runs/...`) quedarán en tu carpeta local, accesibles fuera del contenedor.
+
+**TIP**: Sin `bash` ejecuta el comando por defecto en `Dockerfile`, i.e. `CMD ["make", "setup", "test", "train"]`:
+
+```bash
+   docker run -it --rm -v $(pwd):/workspace ml-template
+```
+
+#### Verificación
+
+* `docker ps` → lista contenedores activos.
+* `docker images` → lista imágenes locales.
+* Comprueba que tras `make train` se genera un directorio `runs/AAAAmmdd_HHMMSS/` con modelo y métricas.
+
+> Tips
+>
+> * Para liberar espacio: `docker system prune -a`
+
+---
+
+### ANEXO: **Instalación GPU (Ubuntu / WSL2)**
+
+* Si trabajas con **GPU (NVIDIA)**: instala también `nvidia-docker2` y añade flag `--gpus all` al `docker run`:
+  * `nvidia-docker2` es un **complemento para Docker** que permite que los contenedores accedan a la **GPU NVIDIA** instalada en tu equipo.
+  * Internamente usa el *NVIDIA Container Toolkit*, que conecta los drivers de tu máquina con el contenedor.
+  * Así, puedes entrenar modelos en GPU dentro de Docker sin tener que instalar CUDA/cuDNN manualmente en la imagen.
+
+- Para Ubuntu:
+
+1. Añadir el repositorio oficial:
+
+   ```bash
+   distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+   curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
+   curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+   ```
+2. Instalar paquete:
+
+   ```bash
+   sudo apt update
+   sudo apt install -y nvidia-docker2
+   ```
+3. Reiniciar Docker:
+
+   ```bash
+   sudo systemctl restart docker
+   ```
+
+- Para WSL:
+  *(En Windows con WSL2, basta con instalar los drivers NVIDIA + Docker Desktop con soporte WSL2 y marcar la opción GPU en settings.)*
+
+---
+
+Una vez instalado el toolkit, construye la nueva imagen:
+
+```bash
+docker build -t ml-template-gpu -f Dockerfile_gpu
+```
+
+Al ejecutar un contenedor solo necesitas añadir la opción `--gpus all`, que expone todas las GPUs disponibles.
+
+**✅ Verificación dentro del contenedor**: Entra y ejecuta:
+
+```bash
+# En el host
+docker run -it --rm --gpus all ml-template-gpu bash
+
+# Y ya dentro del contenedor
+nvidia-smi
+```
+
+Comprueba la información de la tarjeta gráfica.
+
+Puedes limitar, por ejemplo, a la GPU 0:
+
+```bash
+docker run -it --rm --gpus '"device=0"' ml-template-uv bash
+```
+
+**Ejecución del proyecto:**
+
+```bash
+docker run -it --rm --gpus all ml-template-gpu
+```
