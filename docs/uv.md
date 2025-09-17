@@ -30,21 +30,24 @@ source ~/venvs/py311/bin/activate
 
 ## Script para usar `uv` como equivalencias de `conda`
 
-1. Script localizado en `./scripts/uv-envs.sh`
-
+1. Script localizado en `./scripts/uv-envs.sh`. Consulta su [README](../scripts/README.md).
 2. Dale permisos de ejecución:
+
    ```bash
    chmod +x ~/scripts/uv-envs.sh
    ```
-
 3. **Opción 1 (recomendada)**: añádelo a tu `~/.bashrc` como función, para invocarlo directamente como si fuera un comando:
+
 ```bash
 uv-env(){
  # Contenido de uv-envs.sh
 }
 ```
 
+>**IMPORTANTE**: Este script gestiona los environments ubicados en `~/envs/`. Los que crees en otras localizaciones de tu **home** no serán detectados. 
+
 Uso:
+
 ```
 source ~/.bashrc
 uv-env list
@@ -52,6 +55,7 @@ uv-env activate py311
 ```
 
 - **Opción 2**: Como un script separado `uv-envs.sh` (ver `README.md` en directorio `./scripts`del repositorio):
+
 ```
 source ~/scripts/uv-envs.sh list
 source ~/scripts/uv-envs.sh activate py312

@@ -3,7 +3,7 @@
 Work in progress:
 https://gitlab.com/bernardo.ronquillo.japon/ml-project-template-gitlab, rama `brj-01`
 
-To be merged in:
+(**TODO**) To be merged in:
 https://github.com/dcanales-lu/ml-project-template
 
 ## Índice sesión On-Boarding
@@ -27,9 +27,9 @@ Las guías para cada apartado puede encontrarse en el directorio `./docs`:
 
 2. [**Gitlab** &amp; `git`  quick start](./docs/02_Gitlab.md)
 3. [**DagsHub** &amp; `git lfs` quick start](./docs/03_data.md)
-4. [**Docker** setup &amp; quick start](./docs/04_Docker.md)
-5. **Visual Studio Code** & extensiones recomendadas (./docs/05_vsc.md)
-6. [**Hands On**](./hands-on/XXX.md). Proyecto end-to-end
+4. [**Docker** setup &amp; quick start](./docs/04_docker.md)
+5. [**Visual Studio Code**](./docs/05_vsc.md)
+6. [**Hands On**](./hands-on/XXX.md). Proyecto end-to-end (**TODO**)
 
 Otras guías:
 
@@ -246,6 +246,8 @@ cd <tu_repo>
 
 ## ⚡ 3) Quickstart del proyecto
 
+### Setup
+
 ```bash
 make setup   # crea el entorno 3.11 e instala dependencias
 ```
@@ -279,7 +281,32 @@ Installed 7 packages in 97ms
  + threadpoolctl==3.6.0
 ```
 
-Comprobación de la comprobación y proyecto ML de test (Iris):
+El contenido del comando `setup` es el siguiente:
+
+```
+setup: ## Crea venv 3.11 e instala deps
+	$(UV) python install $(PY)
+	$(UV) venv --python $(PY) || true
+	$(UV) pip install --upgrade pip
+	$(UV) sync
+```
+
+ La línea `venv --python $(PY)` crea el entorno en el directorio en el que estás, y es alojado en `.venv` por defecto, en el directorio raíz de tu repositorio, i.e. `~/code/<tu_repo>`.
+
+ Si quieres crear un entorno con un nombre de tu elección:
+
+```
+uv venv <ruta>
+```
+
+Información anexa:
+
+- [Explicación del fichero **Makefile**](./docs/make.md), que contiene los comandos de `make`
+- [Guía rápida de comandos de **uv**](./docs/uv.md). Incluye las equivalencias con el gestor tradicional `conda`,  además de la opción de integrar en tu entorno el script `uv-envs.sh` para recortar los comandos más habituales (listado de entornos y activación de uno)
+
+### Test y entrenamiento de un modelo
+
+Comprobación de la configuración y ejecución del proyecto ML de prueba (Iris):
 
 ```bash
 $ make test    # verificación rápida (scikit-learn)
@@ -298,7 +325,7 @@ artefactos en: runs/20250914_123651
 
   (incluye `model.joblib` y `metrics.json`)
 
-👉 Si quieres probar rápido: edita `configs/config.yaml` (ej. `max_depth`) y vuelve a ejecutar `make train`.
+👉 Si quieres probar rápido: edita `configs/config.yaml` y reduce el valor de  `max_depth`). Vuelve a ejecutar `make train`.
 
 ---
 
@@ -403,15 +430,15 @@ y verás listados tus permisos, incluyendo `NOPASSWD`.
 ### B. Ficheros `.bashrc` vs `.profile`
 
 * **`.profile`** → configuración **global** de la sesión (se carga al iniciar sesión).
-* **`.bashrc`** → configuración **interactiva** de Bash (alias, funciones, prompt).
+* **`.bashrc`** → configuración **interactiva** de bash (alias, funciones, prompt).
 
-| Característica              | `.bashrc`                                                                        | `.profile`                                                                 |
-| ---------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| **Cuándo se ejecuta** | Cada vez que abres una **shell interactiva no-login** (ej. abrir terminal). | Al iniciar una**shell de login** (ej. entrar en el sistema o por SSH). |
-| **Frecuencia**         | Muchas veces, cada nueva terminal.                                                 | Una sola vez al inicio de la sesión.                                        |
-| **Uso típico**        | Alias, funciones, colores del prompt, atajos de comandos.                          | Variables de entorno globales (PATH, JAVA\_HOME, EDITOR).                    |
-| **Relación**          | Solo afecta a Bash.                                                                | Puede invocar a `.bashrc` para cargar también sus ajustes.                |
-| **Ejemplo**            | `alias gs="git status"`                                                          | `export PATH="$HOME/bin:$PATH"`                                            |
+| Característica              | `.bashrc`                                                                      | `.profile`                                                                 |
+| ---------------------------- | -------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| **Cuándo se ejecuta** | Cada vez que abres una**shell interactiva no-login** (ej. abrir terminal). | Al iniciar una**shell de login** (ej. entrar en el sistema o por SSH). |
+| **Frecuencia**         | Muchas veces, cada nueva terminal.                                               | Una sola vez al inicio de la sesión.                                        |
+| **Uso típico**        | Alias, funciones, colores del prompt, atajos de comandos.                        | Variables de entorno globales (PATH, JAVA\_HOME, EDITOR).                    |
+| **Relación**          | Solo afecta a bash.                                                              | Puede invocar a `.bashrc` para cargar también sus ajustes.                |
+| **Ejemplo**            | `alias gs="git status"`                                                        | `export PATH="$HOME/bin:$PATH"`                                            |
 
 Para que `.profile` llame automáticamente a `.bashrc`, que no se ejecuta en el login, comprueba en tu archivo `~/.profile` que está presente este bloque de código:
 
@@ -440,7 +467,7 @@ $ which python3
 Es un soft link: `python3 -> python3.10`
 
 Si intentas llamar a `python` verás que da error, y es porque no está apuntando a `python3`.
-De esta forma, al no estar definido por defecto, aseguramos que `python` apunte a la ubicación y versión de `uv` que queramos:
+De esta forma, al no estar definido por defecto, aseguramos que `python` apunte siempre a la ubicación y versión del entorno `uv` que hayamos activado:
 
 ```bash
 $ which uv

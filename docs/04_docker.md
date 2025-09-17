@@ -135,7 +135,7 @@ Una vez instalado el toolkit, construye la nueva imagen:
 ```bash
 docker build -t ml-template-gpu -f Dockerfile_gpu
 ```
-
+El fichero para construir la imagen es `Dockerfile_gpu`, junto con CUDA se instala Pytorch, para la versión 12.4 de CUDA
 Al ejecutar un contenedor solo necesitas añadir la opción `--gpus all`, que expone todas las GPUs disponibles.
 
 **✅ Verificación dentro del contenedor**: Entra y ejecuta:
