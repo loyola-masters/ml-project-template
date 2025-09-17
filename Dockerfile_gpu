@@ -34,11 +34,11 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 ENV PATH="/workspace/.venv/bin:${PATH}"
 
 # ---- PyTorch con CUDA 12.1 ----
-# Nota: usamos el índice oficial de PyTorch para ruedas cu121.
-# Puedes fijar versión si lo prefieres (ej. torch==2.4.0+cu121).
+# Nota: usamos el índice oficial de PyTorch para ruedas cu124
+# Puedes fijar versión si lo prefieres (ej. torch==2.4.0+cu124)
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv pip install --upgrade pip \
- && uv pip install --index-url https://download.pytorch.org/whl/cu121 torch torchvision torchaudio
+ && uv pip install --index-url https://download.pytorch.org/whl/cu124 torch torchvision torchaudio
 
 # Copiamos el resto del proyecto
 COPY ./src .
