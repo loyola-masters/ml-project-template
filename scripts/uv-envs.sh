@@ -36,6 +36,6 @@ elif [ "$1" = "activate" ] && [ -n "$2" ]; then
 
 else
     echo "Uso:"
-    echo "  $0 list             # Lista entornos con versión de Python"
+    echo "  $0 list             # Lista entornos en ~/envs y versión de Python"
     echo "  $0 activate <name>  # Activa un entorno"
 fi
