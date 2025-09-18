@@ -1,10 +1,6 @@
-# 📦 ML Project Template — MUIA
-
-Work in progress:
-https://gitlab.com/bernardo.ronquillo.japon/ml-project-template-gitlab, rama `brj-01`
-
-(**TODO**) To be merged in:
-https://github.com/dcanales-lu/ml-project-template
+# ML Project Template — MUIA
+Ésta el la plantilla base sobre la que construir de forma estructurada los proyectos de código del Máster en Inteligencia Artificial.
+En el fichero adjunto [GUIA_COMPLETA.pdf](./GUIA_COMPLETA.pdf) están fusionados y organizados todos los ficheros README y de explicaciones ubicados en diferente partes del repositorio, pudiendo, en cualquier caso, acceder a ellos a través de este README principal.
 
 ## Índice sesión On-Boarding
 
@@ -33,7 +29,7 @@ Las guías para cada apartado puede encontrarse en el directorio `./docs`:
 
 Otras guías:
 
-- [Gestión de datos con Dagshub](./docs/data_management.md)
+- [Gestión de datos con Dagshub](./docs/03_data.md)
 - [Equivalencias uv ↔ conda](./docs/uv.md)
 
 ---
@@ -230,7 +226,7 @@ uv python install 3.11
 
 ## 📂 2) Crear tu repositorio desde la plantilla
 
-1. Entra en Github **ml-project-template** → pulsa **Use this template** → **Create a new repository**.
+1. Entra en Github [**ml-project-template**](https://github.com/loyola-masters/ml-project-template) → pulsa **Use this template** → **Create a new repository**.
 
 ![1757845197533](image/README/1757845197533.png)
 
@@ -325,7 +321,7 @@ artefactos en: runs/20250914_123651
 
   (incluye `model.joblib` y `metrics.json`)
 
-👉 Si quieres probar rápido: edita `configs/config.yaml` y reduce el valor de  `max_depth`). Vuelve a ejecutar `make train`.
+👉 Si quieres acelerar el entrenamiento del modelo, edita `configs/config.yaml` y reduce el valor de  `max_depth`). Vuelve a ejecutar `make train`.
 
 ---
 
