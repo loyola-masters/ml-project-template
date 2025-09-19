@@ -4,6 +4,7 @@
 | --------------------------- | -------------------------------------------------------------------------------------------------------- | ----------------------------------------- |
 | Crear un entorno nuevo      | `uv venv myenv` (o `uv venv <ruta>`)<br />Environment se crea en `./env` si no se especifica ruta | `conda create -n myenv python=3.11`     |
 | Activar entorno             | `source ./myenv/bin/activate` (Linux/macOS) `<br>` `.\myvenv\Scripts\activate` (Windows)           | `conda activate myenv`                  |
+| Desactivar entorno             | `deactivate`           | `conda deactivate`                  |
 | Instalar paquete            | `uv add numpy`                                                                                         | `conda install numpy`                   |
 | Instalar desde requirements | `uv pip install -r requirements.txt`                                                                   | `conda install --file requirements.txt` |
 | Eliminar paquete            | `uv remove numpy`                                                                                      | `conda remove numpy`                    |

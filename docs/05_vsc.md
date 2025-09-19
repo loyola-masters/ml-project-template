@@ -34,3 +34,14 @@ Aquí tienes la traducción literal de cada extensión:
 
 * **Git History**: Para ver el histórico de modificaciones sobre un fichero dado.
 
+* **DVC**: Esta extensión añade integración directa con proyectos que usan `dvc` en Git. Funcionalidades:
+
+* **Gestión de datos y modelos**: te muestra los ficheros grandes versionados con DVC y su estado respecto al remoto.
+* **Pipelines visuales**: puedes ver, ejecutar y depurar los *stages* definidos en `dvc.yaml` (grafo de dependencias).
+* **Experimentos**: lanzar, comparar y reproducir experimentos sin salir de VSC.
+* **Sincronización remota**: subir y descargar datos/modelos desde tu remoto de DVC (ej. S3, DagsHub, Google Drive).
+* **Paneles en la barra lateral**: acceso a status de DVC, métricas (`dvc metrics`), parámetros (`params.yaml`) y gráficos (`dvc plots`).
+
+🔹 **Beneficio:**
+Centraliza en Visual Studio Code la gestión de datasets, modelos y experimentos de ML, sin tener que ir a la terminal, y mantiene el **mismo control de versiones que Git pero aplicado a datos y pipelines**.
+
