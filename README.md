@@ -19,15 +19,14 @@ En la parte 2 de la guía se cubren los siguientes apartados:
 
 Las guías para cada apartado puede encontrarse en el directorio `./docs`:
 
-### 📑 Documentación y guías a seguir
+### 📑 Documentación y guías a seguir (parte 2)
 
 2. [**Gitlab** &amp; `git`  quick start](./docs/02_Gitlab.md)
-3. [**DagsHub** &amp; `git lfs` quick start](./docs/03_data.md)
+3. [**DagsHub** &amp; `dvc` quick start](./docs/03_data.md)
 4. [**Docker** setup &amp; quick start](./docs/04_docker.md)
 5. [**Visual Studio Code**](./docs/05_vsc.md)
-6. [**Hands On**](./hands-on/XXX.md). Proyecto end-to-end (**TODO**)
 
-Otras guías:
+Guías complementarias:
 
 - [Gestión de datos con Dagshub](./docs/03_data.md)
 - [Equivalencias uv ↔ conda](./docs/uv.md)
