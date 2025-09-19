@@ -111,14 +111,28 @@ dagshub upload loyola/ml-project-data ./titanic ./data
 ```
 En este caso los datos están divididos en dos datasets, `train.csv` y `test.csv`, por lo que al especificar el directorio donde están alojados, se suben ambos.
 
-**IMPORTANTE**: Fíjate que los datasets no están sometidos a control de configuración con `git`, por lo que el dataset ha subir puede estar en cualquier ubicación, y también puedes descargarlo en cualquier ubicación de tu local.
+**IMPORTANTE**: Fíjate que los datasets no están sometidos a control de configuración con `git`, por lo que el fichero  a subir puede estar en cualquier ubicación, y también puedes descargarlo en cualquier ubicación de tu local.
 
 Finalmente debes hacer `git pull`ya que el fichero `./data/data.dvc` ha sido modificado al hacer el *upload* y Dagshub ha generado automáticamente un commit.
 ```bash
 cd ~/ml-project-data
 git pull
 ```
-Es conveniente anadir a `README.md` la referencia al dataset añadido y hacer `git push` al remoto. 
+Es conveniente añadir a `README.md` la referencia al dataset añadido y hacer `git push` al remoto.
+
+## Clonar el repositorio (git + dvc)
+Sigue estos pasos para traerte todo el código y datos de un proyecto.
+```bash
+git clone https://dagshub.com/loyola/ml-project-data.git
+
+dvc remote modify origin --local auth basic
+dvc remote modify origin --local user <TU_USUARIO_DAGSHUB>
+dvc remote modify origin --local password <TU_TOKEN_PERSONAL>
+
+dvc fetch -r origin -v
+dvc status -r origin
+dvc pull -r origin -v
+```
 
 ---
 
