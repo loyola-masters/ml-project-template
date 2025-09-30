@@ -1,4 +1,5 @@
 # ML Project Template — MUIA
+
 Ésta el la plantilla base sobre la que construir de forma estructurada los proyectos de código del Máster en Inteligencia Artificial.
 En el fichero adjunto [GUIA_COMPLETA.pdf](./GUIA_COMPLETA.pdf) están fusionados y organizados todos los ficheros README y de explicaciones ubicados en diferente partes del repositorio, pudiendo, en cualquier caso, acceder a ellos a través de este README principal.
 
@@ -81,13 +82,16 @@ make train
    git config --global user.name "Tu Nombre"
    git config --global user.email "tu_email@loyola.es"
    ```
-
    Comprueba la configuración:
 
    ```bash
    git config --list
    ```
-5. **Configurar SSH con GitHub (recomendado)**
+   Si no estuviese instalado `git`:
+   ```bash
+   sudo apt-get install git
+   ```
+5. **Configurar SSH con GitHub**
 
    ```bash
    ssh-keygen -t ed25519 -C "tu_email@loyola.es"
@@ -145,8 +149,7 @@ make train
    source ~/.bashrc
    uv --version
    ```
-
-  Output: ``uv 0.8.17``
+   Output: `uv 0.8.17`
 
 ---
 
@@ -162,16 +165,25 @@ make train
 
    ```bash
    brew install git make curl
-
    ```
 3. **Configurar Git**
 
    ```bash
    git config --global user.name "Tu Nombre"
    git config --global user.email "tu_email@loyola.es"
-
    ```
-4. **SSH con GitHub (recomendado)**
+
+   Comprueba la configuración:
+   ```bash
+   git config --list
+   ```
+
+   Si no estuviese instalado `git`:
+   ```bash
+   brew install git
+   ```
+
+4. **SSH con GitHub**
 
    ```bash
    ssh-keygen -t ed25519 -C "tu_email@loyola.es"
@@ -193,6 +205,12 @@ make train
    ```bash
    ssh -T git@github.com
    ```
+   Si conecta correctamente:
+
+   ```bash
+   Hi username! You've successfully authenticated, but GitHub does not provide shell access.
+   ```
+
 5. **Instalar uv**
 
    ```bash
@@ -201,11 +219,23 @@ make train
    source ~/.zshrc
    uv --version
    ```
-6. Instalar make:
+   Si Ok verás las siguientes intrucciones en pantalla:
 
    ```bash
-   sudo apt install make
+   To add $HOME/.local/bin to your PATH, either restart your shell or run:
+
+   source $HOME/.local/bin/env (sh, bash, zsh)
+   source $HOME/.local/bin/env.fish (fish)
    ```
+
+   Añade la ruta al fichero de tu usuario, ejecútalo y haz la comprobación con el comando de versión de `uv`:
+
+   ```bash
+   echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+   source ~/.bashrc
+   uv --version
+   ```
+   Output: `uv 0.8.17`
 
 ---
 
@@ -225,7 +255,7 @@ uv python install 3.11
 
 ## 📂 2) Crear tu repositorio desde la plantilla
 
-1. Entra en Github [**ml-project-template**](https://github.com/loyola-masters/ml-project-template) → pulsa **Use this template** → **Create a new repository**.
+La plantilla que vamos a usar para los proyectos del máster está alojada en Github:Entra en Github [**ml-project-template**](https://github.com/loyola-masters/ml-project-template) → pulsa **Use this template** → **Create a new repository**.
 
 ![1757845197533](image/README/1757845197533.png)
 
@@ -236,6 +266,25 @@ mkdir -p ~/code && cd ~/code
 git clone git@github.com:<tu_usuario>/<tu_repo>.git
 cd <tu_repo>
 ```
+**Método alternativo**:
+
+- Clona directamente el repositorio:
+```bash
+mkdir -p ~/code && cd ~/code
+git clone https://github.com/loyola-masters/ml-project-template.git
+```
+- Crea un repositorio vacío en tu cuenta de Github, y modifica el remoto de la plantilla clonada para que apunte a él:
+
+```bash
+cd ml-project-template
+git remote set-url origin git@github.com:<tu-usuario>/<tu-repo>.git
+```
+- Sube el código de la plantilla:
+```
+git push --set-upstream origin main
+```
+
+De esta forma aseguramos que los cambios que realices en local se puedan sincronizar con Github cuando introduzcas nuevos `commits`.
 
 ---
 
@@ -276,10 +325,13 @@ Installed 7 packages in 97ms
  + threadpoolctl==3.6.0
 ```
 
-El contenido del comando `setup` es el siguiente:
+Los comandos que se ejecutan son (ver fichero `Makefile`):
+```make
+PY ?= 3.11
+UV ?= uv
 
-```
-setup: ## Crea venv 3.11 e instala deps
+## Crea venv 3.11 e instala deps
+setup:
 	$(UV) python install $(PY)
 	$(UV) venv --python $(PY) || true
 	$(UV) pip install --upgrade pip
@@ -320,7 +372,15 @@ artefactos en: runs/20250914_123651
 
   (incluye `model.joblib` y `metrics.json`)
 
-👉 Si quieres acelerar el entrenamiento del modelo, edita `configs/config.yaml` y reduce el valor de  `max_depth`). Vuelve a ejecutar `make train`.
+Si quieres acelerar el entrenamiento del modelo, edita `configs/config.yaml` y reduce el valor de  `max_depth`). Dicho hiperparámetro hace referencia al modelo `DecisionTreeClassifier` de la librería `sklearn` que utilizamos para entrenar el modelo:
+```python
+from sklearn import tree
+
+clf = tree.DecisionTreeClassifier(max_depth=cfg["max_depth"], random_state=cfg["seed"])
+clf.fit(Xtr, ytr)
+```
+
+Vuelve a ejecutar `make train`.
 
 ---
 
@@ -347,7 +407,7 @@ artefactos en: runs/20250914_123651
 
 ## 🔄 5) Cambiar de versión de Python (ej. 3.12)
 
-### Opción A (solo para tu entorno)
+### Opción A (solo para tu entorno en la sesión actual)
 
 ```bash
 uv python install 3.12
@@ -388,7 +448,7 @@ Para volver: haz lo mismo con 3.11.
   → Añade tu clave SSH a GitHub y clona por SSH.
 - **❌ uv: command not found**
 
-  → Abre nueva terminal o ejecuta `source ~/.bashrc` / `~/.zshrc`.
+  → Abre nueva terminal o ejecuta `source ~/.bashrc` (Windows) o `~/.zshrc` (Mac)
 - **📂 ¿Dónde están mis archivos?**
 
   → Trabaja siempre en `~/code/...` (Linux).
@@ -399,7 +459,7 @@ Para volver: haz lo mismo con 3.11.
 
 ## ANEXO: Glosario y explicaciones
 
-### A. Ejecutar comando `sudo`sin contraseña
+### A. Ejecutar comando `sudo` sin contraseña
 
 Edita el fichero de configuración con seguridad:
 
@@ -429,7 +489,7 @@ y verás listados tus permisos, incluyendo `NOPASSWD`.
 
 | Característica              | `.bashrc`                                                                      | `.profile`                                                                 |
 | ---------------------------- | -------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| **Cuándo se ejecuta** | Cada vez que abres una**shell interactiva no-login** (ej. abrir terminal). | Al iniciar una**shell de login** (ej. entrar en el sistema o por SSH). |
+| **Cuándo se ejecuta** | Cada vez que abres una **shell interactiva no-login** (ej. abrir terminal). | Al iniciar una **shell de login** (ej. entrar en el sistema o por SSH). |
 | **Frecuencia**         | Muchas veces, cada nueva terminal.                                               | Una sola vez al inicio de la sesión.                                        |
 | **Uso típico**        | Alias, funciones, colores del prompt, atajos de comandos.                        | Variables de entorno globales (PATH, JAVA\_HOME, EDITOR).                    |
 | **Relación**          | Solo afecta a bash.                                                              | Puede invocar a `.bashrc` para cargar también sus ajustes.                |
@@ -448,6 +508,23 @@ if [ -f "$HOME/.bashrc" ]; then
 fi
 ```
 
+### Aclaraciones para macOS
+- El shell predeterminado desde macOS Catalina es **zsh**. Pero **bash** sigue disponible y puede usarse si se configura explícitamente.
+- En bash, los archivos equivalentes son:
+  - **.bash_profile**: Similar a `.profile` en Linux. Se ejecuta en shells de login (sesión inicial).
+  - **.bashrc**: Se ejecuta en shells interactivas no-login.
+- Práctica común en macOS: `.bash_profile` incluye el contenido de `.bashrc` para que configuraciones en `.bashrc` se apliquen en ambos casos (login y no-login).
+- Ejemplo de inclusión en `.bash_profile` en macOS:
+  
+  ```bash
+  if [ -f ~/.bashrc ]; then
+      source ~/.bashrc
+  fi
+  ```
+- Para zsh (shell por defecto en macOS moderno), los archivos equivalentes son:
+  - **.zshrc**: Para shells interactivas.
+  - **.zprofile** o **.zlogin**: Para shells login.
+
 ---
 
 ### C. Python nativo
@@ -459,7 +536,7 @@ $ which python3
 /usr/bin/python3
 ```
 
-Es un soft link: `python3 -> python3.10`
+Se trata de un soft link: `python3 -> python3.10`
 
 Si intentas llamar a `python` verás que da error, y es porque no está apuntando a `python3`.
 De esta forma, al no estar definido por defecto, aseguramos que `python` apunte siempre a la ubicación y versión del entorno `uv` que hayamos activado:
@@ -490,10 +567,8 @@ $ which uv
      code .
      ```
 
-   > El `code .` abre la carpeta actual de WSL directamente en VS Code de Windows, usando el servidor remoto de la extensión.
+   > El comando `code .` abre la carpeta actual de WSL directamente en VS Code de Windows, usando el servidor remoto de la extensión.
    >
-
----
 
 **🔹 Opción 2: Abrir repos desde Windows, pero trabajar en WSL**
 
