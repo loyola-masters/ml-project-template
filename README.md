@@ -82,12 +82,15 @@ make train
    git config --global user.name "Tu Nombre"
    git config --global user.email "tu_email@loyola.es"
    ```
+
    Comprueba la configuración:
 
    ```bash
    git config --list
    ```
+
    Si no estuviese instalado `git`:
+
    ```bash
    sudo apt-get install git
    ```
@@ -149,6 +152,7 @@ make train
    source ~/.bashrc
    uv --version
    ```
+
    Output: `uv 0.8.17`
 
 ---
@@ -174,15 +178,16 @@ make train
    ```
 
    Comprueba la configuración:
+
    ```bash
    git config --list
    ```
 
    Si no estuviese instalado `git`:
+
    ```bash
    brew install git
    ```
-
 4. **SSH con GitHub**
 
    ```bash
@@ -205,12 +210,12 @@ make train
    ```bash
    ssh -T git@github.com
    ```
+
    Si conecta correctamente:
 
    ```bash
    Hi username! You've successfully authenticated, but GitHub does not provide shell access.
    ```
-
 5. **Instalar uv**
 
    ```bash
@@ -219,6 +224,7 @@ make train
    source ~/.zshrc
    uv --version
    ```
+
    Si Ok verás las siguientes intrucciones en pantalla:
 
    ```bash
@@ -235,6 +241,7 @@ make train
    source ~/.bashrc
    uv --version
    ```
+
    Output: `uv 0.8.17`
 
 ---
@@ -266,20 +273,25 @@ mkdir -p ~/code && cd ~/code
 git clone git@github.com:<tu_usuario>/<tu_repo>.git
 cd <tu_repo>
 ```
+
 **Método alternativo**:
 
 - Clona directamente el repositorio:
+
 ```bash
 mkdir -p ~/code && cd ~/code
 git clone https://github.com/loyola-masters/ml-project-template.git
 ```
+
 - Crea un repositorio vacío en tu cuenta de Github, y modifica el remoto de la plantilla clonada para que apunte a él:
 
 ```bash
 cd ml-project-template
 git remote set-url origin git@github.com:<tu-usuario>/<tu-repo>.git
 ```
+
 - Sube el código de la plantilla:
+
 ```
 git push --set-upstream origin main
 ```
@@ -326,6 +338,7 @@ Installed 7 packages in 97ms
 ```
 
 Los comandos que se ejecutan son (ver fichero `Makefile`):
+
 ```make
 PY ?= 3.11
 UV ?= uv
@@ -373,6 +386,7 @@ artefactos en: runs/20250914_123651
   (incluye `model.joblib` y `metrics.json`)
 
 Si quieres acelerar el entrenamiento del modelo, edita `configs/config.yaml` y reduce el valor de  `max_depth`). Dicho hiperparámetro hace referencia al modelo `DecisionTreeClassifier` de la librería `sklearn` que utilizamos para entrenar el modelo:
+
 ```python
 from sklearn import tree
 
@@ -405,7 +419,24 @@ Vuelve a ejecutar `make train`.
 
 ---
 
-## 🔄 5) Cambiar de versión de Python (ej. 3.12)
+## 🔄 5) Instalación de Jupyter
+
+```bash
+source .venv/bin/activate
+uv add --dev jupyter ipykernel
+uv add jupyter jupyterlab
+```
+Ejecutar `Jupyter`:
+```bash
+uv run jupyter notebook
+```
+Ejecutar `Jupyter Lab`:
+```bash
+uv run jupyter lab
+```
+---
+
+## 🔄 6) Cambiar de versión de Python (ej. 3.12)
 
 ### Opción A (solo para tu entorno en la sesión actual)
 
@@ -441,7 +472,7 @@ Para volver: haz lo mismo con 3.11.
 
 ---
 
-## ❓ 6) Preguntas frecuentes
+## ❓ 7) Preguntas frecuentes
 
 - **❌ Permission denied (publickey)**
 
@@ -489,7 +520,7 @@ y verás listados tus permisos, incluyendo `NOPASSWD`.
 
 | Característica              | `.bashrc`                                                                      | `.profile`                                                                 |
 | ---------------------------- | -------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| **Cuándo se ejecuta** | Cada vez que abres una **shell interactiva no-login** (ej. abrir terminal). | Al iniciar una **shell de login** (ej. entrar en el sistema o por SSH). |
+| **Cuándo se ejecuta** | Cada vez que abres una**shell interactiva no-login** (ej. abrir terminal). | Al iniciar una**shell de login** (ej. entrar en el sistema o por SSH). |
 | **Frecuencia**         | Muchas veces, cada nueva terminal.                                               | Una sola vez al inicio de la sesión.                                        |
 | **Uso típico**        | Alias, funciones, colores del prompt, atajos de comandos.                        | Variables de entorno globales (PATH, JAVA\_HOME, EDITOR).                    |
 | **Relación**          | Solo afecta a bash.                                                              | Puede invocar a `.bashrc` para cargar también sus ajustes.                |
@@ -509,19 +540,22 @@ fi
 ```
 
 ### Aclaraciones para macOS
+
 - El shell predeterminado desde macOS Catalina es **zsh**. Pero **bash** sigue disponible y puede usarse si se configura explícitamente.
 - En bash, los archivos equivalentes son:
+
   - **.bash_profile**: Similar a `.profile` en Linux. Se ejecuta en shells de login (sesión inicial).
   - **.bashrc**: Se ejecuta en shells interactivas no-login.
 - Práctica común en macOS: `.bash_profile` incluye el contenido de `.bashrc` para que configuraciones en `.bashrc` se apliquen en ambos casos (login y no-login).
 - Ejemplo de inclusión en `.bash_profile` en macOS:
-  
+
   ```bash
   if [ -f ~/.bashrc ]; then
       source ~/.bashrc
   fi
   ```
 - Para zsh (shell por defecto en macOS moderno), los archivos equivalentes son:
+
   - **.zshrc**: Para shells interactivas.
   - **.zprofile** o **.zlogin**: Para shells login.
 
