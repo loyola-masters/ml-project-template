@@ -37,9 +37,12 @@ Si ves el mensaje *Hello from Docker!*, todo está correcto.
    * Instala su propio motor de Docker, pero **lo hace sobre WSL2** (ya no sobre Hyper-V como antes).
    * Por eso durante la instalación aparece “Use the WSL2 based engine”.
    * Crea una distro interna llamada `docker-desktop` en WSL para gestionar contenedores.
-2. **Tu Ubuntu en WSL**
+   
+   Este modo de instalación permite tener disponible Docker tanto en Windows como en WSL. 
 
-   * Es una distro aparte (ej. `Ubuntu-22.04`).
+2. **Sólo para Ubuntu en WSL**
+
+   * WSL es una distro aparte (ej. `Ubuntu-22.04`).
    * Aquí puedes instalar **otro engine de Docker** usando `apt install docker-ce`.
 3. **Posible conflicto**
 
@@ -48,10 +51,9 @@ Si ves el mensaje *Hello from Docker!*, todo está correcto.
      * `docker` en Ubuntu apunta al daemon de esa distro.
      * `docker` en Windows (via Docker Desktop) apunta al daemon del `docker-desktop`.
    * Esto causa confusión: imágenes, contenedores y redes no son compartidas entre ambos motores.
-4. **Recomendación práctica**
+4. **Recomendación**
 
-   * **Usa Docker Desktop como motor único**. Desde tu Ubuntu-WSL, el cliente `docker` se conecta automáticamente al daemon de Docker Desktop (si tienes habilitada la integración con tu distro en “Settings → Resources → WSL Integration”).
-   * Evita instalar `docker-ce` dentro de la misma Ubuntu-WLS si ya usas Docker Desktop, salvo que quieras gestionar un motor independiente.
+   Usa Docker Desktop como motor único. Desde tu Ubuntu-WSL, el cliente `docker` se conecta automáticamente al daemon de Docker Desktop (si tienes habilitada la integración con tu distro en “Settings → Resources → WSL Integration”).
 
 ---
 

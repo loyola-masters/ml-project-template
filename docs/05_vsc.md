@@ -2,12 +2,12 @@
 
 ## 1. Conectar a WSL
 
-- Instala la extensión `WSL` tal como se aprecia en la siguiente imagen:
+- Instala la extensión `WSL` tal como se aprecia en la siguiente imagen (primera extensión):
   ![1758103915531](image/05_vsc/1758103915531.png)
 - En la esquina inferior izquierda verás un pequeño botón `><`. Haz click y se abrirá una nueva ventana de VSC que apunta al entorno Ubuntu de WSL
 - Abre la carpeta `/home/ubuntu/code` donde verás el repositorio de la plantilla sobre el que venimos trabajando
 
-> **NOTA**: Trabajar desde VSC es la opción recomendada, ya que mucho más cómodo que hacerlo desde la terminal
+> **NOTA**: Trabajar desde VSC es la opción recomendada. Es mucho más cómodo que hacerlo desde la terminal porque tenemos integrado código y terminal, además de todas las utilidades que nos proporcionan las extensiones.
 
 ## 2. Extensiones recomendadas
 
