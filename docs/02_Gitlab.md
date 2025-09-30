@@ -35,7 +35,7 @@ ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519_gitlab -C "tu_email@loyola.es"
 cat ~/.ssh/id_ed25519_gitlab.pub
 ```
 
-Copia la clave pública en → GitLab → **Preferences → SSH Keys → Add key**
+Copia la clave pública en → GitLab → User icon → **Settings→ SSH Keys → Add new key**
 Puedes ver que damos un nombre específico a la nueva clave `id_ed25519_gitlab`
 
 Prueba la conexión:
