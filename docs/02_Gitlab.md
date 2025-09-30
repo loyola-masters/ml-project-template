@@ -1,3 +1,5 @@
+[Back to `README.md`](../README.md)
+
 ## 2) GitLab & `git` quick start
 
 Objetivo: configurar rápidamente Git en tu equipo y empezar a versionar tu proyecto en **GitLab**.
@@ -7,8 +9,8 @@ Objetivo: configurar rápidamente Git en tu equipo y empezar a versionar tu proy
 1. Ve a [https://gitlab.com](https://gitlab.com) y crea tu cuenta (puedes usar tu correo académico).
 2. Crea un repositorio nuevo:
    - Nombre: `ml-project-template`
-   - Visibilidad: `private` (recomendado para clase)
-   - Marca la opción *Initialize repository with a README* (opcional).
+   - Visibilidad: `public` o `private`
+   - (opcional) Marca la opción *Initialize repository with a README*
 
 ### 2. Configurar Git en tu equipo
 
@@ -102,7 +104,7 @@ git push origin main
 
 ---
 
-### Introducción rápida a Git
+### ANEXO: Introducción rápida a Git
 
 Git es un sistema de **control de versiones distribuido**. Permite guardar el historial de cambios de tu código, trabajar en paralelo y colaborar con otros de forma ordenada.
 

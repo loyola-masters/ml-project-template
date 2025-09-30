@@ -1,3 +1,5 @@
+[Back to `README.md`](../README.md)
+
 ## Tabla de equivalencias entre **uv** y **conda**
 
 | Tarea                       | `uv`                                                                                                   | `conda`                                 |

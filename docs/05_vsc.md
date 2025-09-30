@@ -1,3 +1,5 @@
+[Back to `README.md`](../README.md)
+
 ## 1. Conectar a WSL
 
 - Instala la extensión `WSL` tal como se aprecia en la siguiente imagen:
